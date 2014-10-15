@@ -1,0 +1,7 @@
+Creating and using libraries:
+	Create libs:
+		$ dmd pathToLibraryFolder/moduleName.d pathToSameLibraryFolder/anotherModuleName.d -lib -ofLibraryFolderName
+	output from this is LibraryFolderName.a
+	To use the newly created lib in a program:
+		$ dmd programToBeCompiled.d libraryName.a
+	source: http://ddili.org/ders/d.en/modules.html
