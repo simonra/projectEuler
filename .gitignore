@@ -1,3 +1,5 @@
 D/executables/*
 D/otherCrap/*
 D/source/*.a
+D/source/projectEulerProblem*
+D/Makefile
