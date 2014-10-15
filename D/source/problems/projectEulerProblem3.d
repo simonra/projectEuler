@@ -3,9 +3,9 @@ import utilities.sieveOfEratosthenes;
 
 void main(){
 	sieveOfErastothenes mySieve = new sieveOfErastothenes();
-	double numberToBeFactorized, currentFactor;
-	double[] primes, factors;
-	double primeSizeLimit = 512;
+	real numberToBeFactorized, currentFactor;
+	real[] primes, factors;
+	real primeSizeLimit = 512;
 	numberToBeFactorized = 600851475143;
 	currentFactor = 1;
 	primes = mySieve.primesLessThanN(primeSizeLimit);
