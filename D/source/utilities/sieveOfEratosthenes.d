@@ -2,14 +2,14 @@ import std.stdio, std.math, std.array, std.algorithm;
 
 class sieveOfErastothenes {
 
-	int[] primesLessThanN(int n){
-		int[] primesLessThanN, candidateNumbers;
-		int currentPrime;
-		long indexOfI;
+	double[] primesLessThanN(double n){
+		double[] primesLessThanN, candidateNumbers;
+		double currentPrime;
+		ulong indexOfI;
 
 		//Populate with all the numbers less than N
 		primesLessThanN ~= 2;
-		for(int i = 3; i < n; i += 2 ){
+		for(double i = 3; i < n; i += 2 ){
 			candidateNumbers ~= i;
 		}
 
@@ -24,7 +24,7 @@ class sieveOfErastothenes {
 			it's safe to start with the square of the current prime.
 			Also because there are no even numbers at this point, it's
 			safe to do 2*currentPrime, skipping the evens.*/
-			for(int i = currentPrime * currentPrime; i < n; i += 2*currentPrime){
+			for(double i = currentPrime * currentPrime; i < n; i += 2*currentPrime){
 				indexOfI = candidateNumbers.countUntil(i);
 				//Composite with smaller prime, therefore already removed, continue to next iteration
 				if(indexOfI == -1) continue;
