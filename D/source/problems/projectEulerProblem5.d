@@ -8,14 +8,15 @@ void main(){
 
 	real productOfFactorBase = 1;
 	real[] primeBase = mySieve.primesLessThanN(20);
-	real[] factorBase, factorsOfCurrentNumbers;
+	real[] factorBase, factorsOfCurrentNumber;
 	real numberOfTimesToAddPrime;
 	
 	for(int i = 4; i <= 20; i++){
-		factorsOfCurrentNumbers = factorizationUtil.eratosthenesFactorization(i);
+		factorsOfCurrentNumber = factorizationUtil.eratosthenesFactorization(i);
 		foreach(prime; primeBase){
-			if(factorBase.count(prime) < factorsOfCurrentNumbers.count(prime)){
-				numberOfTimesToAddPrime = factorsOfCurrentNumbers.count(prime) - factorBase.count(prime);
+			if(factorBase.count(prime) < factorsOfCurrentNumber.count(prime)){
+				numberOfTimesToAddPrime = factorsOfCurrentNumber.count(prime) - factorBase.count(prime);
+				writeln("Diff: ", numberOfTimesToAddPrime);
 				for(int j = 0; j < numberOfTimesToAddPrime; j++){
 					factorBase ~= prime;
 				}
@@ -25,5 +26,6 @@ void main(){
 	foreach(factor; factorBase){
 		productOfFactorBase *= factor;
 	}
+	writeln("FactorBase is: ", factorBase);
 	writeln("Smallest possible product: ", productOfFactorBase);
 }
