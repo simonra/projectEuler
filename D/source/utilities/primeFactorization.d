@@ -12,7 +12,7 @@ public class primeFactorization {
 		real numberToBeFactorized, currentFactor;
 		real[] primes, factors;
 		real primeSizeLimit = 512;
-		numberToBeFactorized = 600851475143;
+		numberToBeFactorized = n;
 		currentFactor = 1;
 	
 		//Make initial pool of primes to check against
