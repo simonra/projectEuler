@@ -1,5 +1,6 @@
 import std.stdio, std.algorithm;
-import utilities;
+import utilities.sieveOfEratosthenes;
+import utilities.primeFactorization;
 
 void main(){
 	sieveOfEratosthenes mySieve = new sieveOfEratosthenes();
