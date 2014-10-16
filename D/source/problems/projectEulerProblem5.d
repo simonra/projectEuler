@@ -16,7 +16,6 @@ void main(){
 		foreach(prime; primeBase){
 			if(factorBase.count(prime) < factorsOfCurrentNumber.count(prime)){
 				numberOfTimesToAddPrime = factorsOfCurrentNumber.count(prime) - factorBase.count(prime);
-				writeln("Diff: ", numberOfTimesToAddPrime);
 				for(int j = 0; j < numberOfTimesToAddPrime; j++){
 					factorBase ~= prime;
 				}
