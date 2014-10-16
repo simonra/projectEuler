@@ -3,7 +3,7 @@ import utilities.sieveOfEratosthenes;
 
 void main(){
 	//Initialize sieveclass
-	sieveOfErastothenes mySieve = new sieveOfErastothenes();
+	sieveOfEratosthenes mySieve = new sieveOfEratosthenes();
 	//Variables
 	real numberToBeFactorized, currentFactor;
 	real[] primes, factors;

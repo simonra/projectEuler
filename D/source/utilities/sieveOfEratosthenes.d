@@ -1,6 +1,7 @@
+module utilities.sieveOfEratosthenes;
 import std.stdio, std.math, std.array, std.algorithm;
 
-class sieveOfErastothenes {
+public class sieveOfEratosthenes {
 
 	real[] primesLessThanN(real n){
 		real[] primesLessThanN, candidateNumbers;
