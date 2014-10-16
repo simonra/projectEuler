@@ -1,3 +1,5 @@
+*.swp
+
 D/executables/*
 D/otherCrap/*
 D/source/*.a
