@@ -1,122 +1,20 @@
 import std.stdio, std.math, std.format;
-import utilities.sieveOfEratosthenes;
-import utilities.primeFactorization;
 
 void main(){
-	//real triangleNumber, numberOfDivisors;
-	//for(real i = 8000; true; i++){
-	//	triangleNumber = i*(i+1)/2;
-	//	numberOfDivisors = 0;
-	//	for(real j = 1; j <= triangleNumber / 2; j++){
-	//		if(triangleNumber % j == 0){
-	//			numberOfDivisors++;
-	//		}
-	//	}
-	//	numberOfDivisors++; //is divisible with itself
-	//	if (i % 2 == 0)
-	//	writefln("Triangle number %g is %.20g, and has %g divisors", i, triangleNumber, numberOfDivisors);
-	//	if(numberOfDivisors >= 500){
-	//		break;
-	//	}
-	//}
-	//writefln("The first triangle number with more than 500 divisors has %.20g number of divisors, it's: %.20g", numberOfDivisors, triangleNumber);
-
-	sieveOfEratosthenes mySieve = new sieveOfEratosthenes();
-	primeFactorization factorizationUtility = new primeFactorization();
-	real currentTriangleNumber, lastTriangleNumber, secondLastTriangleNumber, solutionTriangleNumber;
-	real currentNumberOfFactors, lastNumberOfFactors, secondLastNumberOfFactors, targetNumberOfFactors;
-	real[] factors, primeFactors;
-
-	lastTriangleNumber = 1;
-	secondLastTriangleNumber = 0;
-	lastNumberOfFactors = 1;
-	secondLastNumberOfFactors = 0;
-	targetNumberOfFactors = 500;
-
-	void updateCurrentTriangleNumber(){
-		//We are too low
-		if(lastNumberOfFactors < targetNumberOfFactors){
-			//Were we previously too low?
-			if(secondLastNumberOfFactors < targetNumberOfFactors){
-				currentTriangleNumber = lastTriangleNumber * 2;
-			}
-			//Or were we previously too high?
-			else{
-				currentTriangleNumber = lastTriangleNumber + floor((secondLastTriangleNumber - lastTriangleNumber)/2);
-			}
-		}
-		//We are too high
-		else{
-			//Were we previously too low?
-			if(secondLastNumberOfFactors < targetNumberOfFactors){
-				currentTriangleNumber = secondLastTriangleNumber + floor((lastTriangleNumber - secondLastTriangleNumber)/2);
-			}
-			//Or were we previously too high?
-			else{
-				currentTriangleNumber = lastTriangleNumber / 2;
-			}
-		}
-	}
-
-	void findFactorsOfCurrentTriangleNumber(){
-		//primeFactors = factorizationUtility.eratosthenesFactorization(triangle(currentTriangleNumber));
-		//count the ammount of each prime factor
-		//int[] numberOfEachFactor;
-		//while(primeFactors)
-		//use property that number of divisors = product of (number of occurences of each prime facotor + 1)
-		//set currentNumberOfFactors
-
-		real triangleNumber = currentTriangleNumber* (currentTriangleNumber + 1) /2;
-		real numberOfDivisors = 0;
-		for(real j = 1; j <= triangleNumber / 2; j++){
+	real triangleNumber, numberOfDivisors;
+	for(real i = 0; true; i++){
+		triangleNumber = i*(i+1)/2;
+		numberOfDivisors = 0;
+		/*This improvements make the brute-force approach viable. Because there for every divisor below the square root is a corresponding divisor above the square root, we can multiply by two. This is signifficantly better than the divide by two approach which had to iterate through all the divisors as opposed to this itterating only through half of the divisors.*/
+		for(real j = 1; j <= sqrt(triangleNumber); j++){
 			if(triangleNumber % j == 0){
-				numberOfDivisors++;
-			}
-		}
-		numberOfDivisors++; //is divisible with itself
-		currentNumberOfFactors = numberOfDivisors;
-	}
-
-	real triangle(real number){
-		return number*(number + 1)/2;
-	}
-
-	bool targetReached(){
-		if(currentTriangleNumber == lastTriangleNumber + 1){
-			if(lastNumberOfFactors == targetNumberOfFactors - 1){
-				if(currentTriangleNumber == targetNumberOfFactors){
-					solutionTriangleNumber = currentTriangleNumber;
-					return true;
-				}
-			}
-		}else if(lastTriangleNumber == currentTriangleNumber + 1){
-			if(currentNumberOfFactors == targetNumberOfFactors - 1){
-				if(lastTriangleNumber == targetNumberOfFactors){
-					solutionTriangleNumber = lastTriangleNumber;
-					return true;
-				}
+				numberOfDivisors += 2;
 			}
 		}
 
-		return false;
-	}
-
-	while(true){
-		updateCurrentTriangleNumber();
-		findFactorsOfCurrentTriangleNumber();
-		//check whether one is done
-		if(targetReached()){
+		if(numberOfDivisors >= 500){
 			break;
 		}
-
-		//update second last and last
-		secondLastTriangleNumber = lastTriangleNumber;
-		secondLastNumberOfFactors = lastNumberOfFactors;
-		lastTriangleNumber = currentTriangleNumber;
-		lastNumberOfFactors = currentNumberOfFactors;
-		writefln("Triangle number %g is %.20g, and has %g divisors", currentTriangleNumber, triangle(currentTriangleNumber), currentNumberOfFactors);
 	}
-
-	writefln("The first triangle number with more than 500 divisors is: %.20g", triangle(solutionTriangleNumber));
-
+	writefln("The first triangle number with more than 500 divisors has %.20g number of divisors, it's: %.20g", numberOfDivisors, triangleNumber);
 }
