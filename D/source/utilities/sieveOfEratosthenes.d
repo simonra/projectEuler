@@ -1,46 +1,75 @@
 module utilities.sieveOfEratosthenes;
-import std.stdio, std.math, std.array, std.algorithm;
+import std.stdio, std.math, std.array, std.algorithm, std.container;
 
 public class sieveOfEratosthenes {
 
 	real[] primesLessThanN(real n){
-		real[] primesLessThanN, candidateNumbers;
-		real currentPrime;
-		ulong indexOfI;
+		real[] primesLessThanN;
+		bool[] possiblePrimes;
+		ulong indexOfCurrentPrime = 3;
+		bool isNumberOdd = true;
 
-		//Populate with all the numbers less than N
-		primesLessThanN ~= 2;
-		for(real i = 3; i < n; i += 2 ){
-			candidateNumbers ~= i;
-		}
+		if(n <= 2) return primesLessThanN;
 
-		//Iterate over possible primes untill there are no more possibilities
-		while(candidateNumbers.length > 0){
-			currentPrime = candidateNumbers.front;
-			primesLessThanN ~= currentPrime;
-			candidateNumbers.popFront();
-
-			/*Remove all remaining multiples of the current prime.
-			Because all smaller composite numbers have been removed,
-			it's safe to start with the square of the current prime.
-			Also because there are no even numbers at this point, it's
-			safe to do 2*currentPrime, skipping the evens.*/
-			for(real i = currentPrime * currentPrime; i < n; i += 2*currentPrime){
-				indexOfI = candidateNumbers.countUntil(i);
-				//Composite with smaller prime, therefore already removed, continue to next iteration
-				if(indexOfI == -1) continue;
-				candidateNumbers = candidateNumbers[0 .. indexOfI] ~ candidateNumbers[indexOfI + 1 .. $];
+		//Append the values for 0, 1, and 2
+		possiblePrimes ~= false;
+		possiblePrimes ~= false;
+		possiblePrimes ~= true;
+		//Start populating the array
+		for(real i = 3; i < n; i ++){
+			if(isNumberOdd){
+				possiblePrimes ~= true;
+				isNumberOdd = false;
+			}
+			else{
+				possiblePrimes ~= false;
+				isNumberOdd = true;
 			}
 		}
+
+		while(true){
+			/*Mark all remaining multiples of the current prime.
+			Because all smaller composite numbers have been marked,
+			it's safe to start with the square of the current prime.
+			Also because all even numbers have been marked at this
+			point, it's safe to do 2*indexOfCurrentPrime, skipping
+			the evens.*/
+			for(ulong i = indexOfCurrentPrime * indexOfCurrentPrime; i < n; i += 2*indexOfCurrentPrime){
+				possiblePrimes[i] = false;
+			}
+			/*When having hit halfways there can be no higher
+			composite numbers that havent been ruled out, so
+			one can stop at this point.*/
+			if(indexOfCurrentPrime >= n/2){
+				break;
+			}
+
+			/*Increment to the next number so we don't get stuck,
+			also only check every other number because evens.*/
+			indexOfCurrentPrime += 2;
+			while(!possiblePrimes[indexOfCurrentPrime]){
+				indexOfCurrentPrime += 2;
+			}
+
+		}
+
+		primesLessThanN ~= 2;
+		for(ulong i = 3; i < n; i += 2){
+			if(possiblePrimes[i]){
+				primesLessThanN ~= i;
+			}
+		}
+
+
 		return primesLessThanN;
 	}
 }
 /*
 //Testcode
 void main(){
-	sieveOfErastothenes mySieve = new sieveOfErastothenes();
-	int[] primes = mySieve.primesLessThanN(20000);
-	writeln(primes);
+	sieveOfEratosthenes mySieve = new sieveOfEratosthenes();
+	real[] primes = mySieve.primesLessThanN(1);
+	//writeln(primes);
 	writeln(primes.length);
 }
 */
