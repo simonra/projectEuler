@@ -5,3 +5,6 @@ D/otherCrap/*
 D/source/*.a
 D/source/projectEulerProblem*
 D/Makefile
+
+Haskell/*.hi
+Haskell/*.o
