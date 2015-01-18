@@ -8,3 +8,6 @@ D/Makefile
 
 Haskell/*.hi
 Haskell/*.o
+
+Rust/*
+!Rust/*.rs
