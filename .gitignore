@@ -6,8 +6,8 @@ D/source/*.a
 D/source/projectEulerProblem*
 D/Makefile
 
-Haskell/*.hi
-Haskell/*.o
+Haskell/*
+!Haskell/*.hs
 
 Rust/*
 !Rust/*.rs
